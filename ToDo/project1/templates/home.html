@@ -22,16 +22,37 @@
   <body>
     <center><h1 class="text-primary fw-bold">TODO APP</h1></center>
     <div class="container mt-5">
-      <form  method="post">
+      <form  method="POST">
         {% csrf_token %}
         <div class="input-group mb-3">
-          <input type="text" class="form-control" name="todoInput" placeholder="Enter a new task">
+          <input type="text" class="form-control" name="todoInput" placeholder="Enter a new task" required>
           <button class="btn btn-primary" type="submit" name="addBtn">Add</button>
         </div>
-      </div>
       </form>
+    </div>
+     
       
-    {% include "list.html" %}
+    <div class="container-md">
+      <div class="row">
+            <div class="col-md-12">
+                <center><h3 class="text-primary fw-bold mt-4">LIST</h3></center>
+                {% if task %}
+                 {% for i in task %}
+                  <div class="card w-75 ms-5">
+                   <div class="card-body ">
+                       <p>{{ i.item}}</p>
+                     <a class="btn btn-primary ms-5 " href="#" role="button">delete</a>
+                     <a class="btn btn-primary " href="#" role="button">Link</a>
+                   </div>
+                 </div>
+                 {% endfor %}
+                {% else %}
+                  <h3>No tasks</h3>
+                {% endif %}
+               
+              </div>
+      </div>
+    </div>
     </script>
     
 

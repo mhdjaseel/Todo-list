@@ -1,10 +1,12 @@
-from django import views
+
 from django.shortcuts import render,redirect
-from .model import Todo
+from .models import Todo
 
 def home(request):
-    if request.POST:
+    context={}
+    if request.method =='POST':    
         item=request.POST.get('todoInput')
         Todo.objects.create(item=item)
-        return redirect('home')
-    return render(request,'home.html')
+        task = Todo.objects.all().order_by('-created_at')
+        context={'task':task}
+    return render(request,'home.html',context)
