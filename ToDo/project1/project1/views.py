@@ -7,6 +7,14 @@ def home(request):
     if request.method =='POST':    
         item=request.POST.get('todoInput')
         Todo.objects.create(item=item)
-        task = Todo.objects.all().order_by('-created_at')
-        context={'task':task}
+        return redirect('home')
+    task = Todo.objects.all().order_by('-created_at')
+    context={'task':task}
     return render(request,'home.html',context)
+
+def delete(request, id):
+    item=Todo.objects.get(id=id)
+    if request.method =='POST':    
+        item.delete()
+        return redirect('home')
+    return render(request,'deletion.html',{'item':item})
