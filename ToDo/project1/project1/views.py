@@ -2,6 +2,7 @@
 from django.shortcuts import render,redirect
 from .models import Todo
 
+#view for home
 def home(request):
     context={}
     if request.method =='POST':    
@@ -10,7 +11,9 @@ def home(request):
         return redirect('home')
     task = Todo.objects.all().order_by('-created_at')
     context={'task':task}
-    return render(request,'home.html',context)
+    return render(request,'layout.html',context)
+
+#view for delete
 
 def delete(request, id):
     item=Todo.objects.get(id=id)
@@ -19,6 +22,8 @@ def delete(request, id):
         return redirect('home')
     return render(request,'deletion.html',{'item':item})
 
+#view for edit
+
 def edit(request,id):
     task=Todo.objects.get(id=id)
     if request.method =='POST':
@@ -26,3 +31,8 @@ def edit(request,id):
         task.save()
         return redirect('home')
     return render(request,'edit.html',{'task':task})
+
+#view for completed
+
+def completed(request):
+    return render(request,'completed.html')
