@@ -1,4 +1,4 @@
-        <div class="container">
+        <div class="container w-50">
           <center><h1 class="text-primary fw-bold">LIST</h1></center>
           {% if task %}
             {% for i in task %}
@@ -9,7 +9,7 @@
                     </span>
                 <div>
                   <a class="btn btn-danger btn-sm me-2" href="{% url "delete" i.id %}" role="button">delete</a>
-                  <a class="btn btn-secondary btn-sm " href="#" role="button">edit</a>
+                  <a class="btn btn-secondary btn-sm " href="{% url "edit" i.id %}" role="button">edit</a>
                   </div>
               </div>
           </div>
@@ -19,3 +19,4 @@
         {% endif %}
         </div>
 
+        

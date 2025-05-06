@@ -18,3 +18,11 @@ def delete(request, id):
         item.delete()
         return redirect('home')
     return render(request,'deletion.html',{'item':item})
+
+def edit(request,id):
+    task=Todo.objects.get(id=id)
+    if request.method =='POST':
+        task.item=request.POST.get('updateditem',task.item)
+        task.save()
+        return redirect('home')
+    return render(request,'edit.html',{'task':task})
