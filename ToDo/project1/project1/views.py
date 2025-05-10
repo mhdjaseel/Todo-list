@@ -1,7 +1,10 @@
 
 from django.shortcuts import render,redirect
 from .models import Todo
+from django.contrib.auth.decorators import login_required
+from account.models import Account
 
+@login_required
 #view for home
 def home(request):
     context={}
@@ -16,6 +19,7 @@ def home(request):
 
 #view for delete
 
+@login_required
 def delete(request, id):
     item=Todo.objects.get(id=id)
     next_page=request.GET.get("next","home")     # identify request frm which template
@@ -31,6 +35,7 @@ def delete(request, id):
 
 #view for edit
 
+@login_required
 def edit(request,id):
     task=Todo.objects.get(id=id)
     if request.method =='POST':
@@ -42,6 +47,7 @@ def edit(request,id):
 
 #view for change status to completed
 
+@login_required
 def completed(request,id):
     task=Todo.objects.get(id=id)
     task.status=True
@@ -51,6 +57,14 @@ def completed(request,id):
 
 #view for completed task
 
+@login_required
 def completed_task(request):
     task=Todo.objects.all().filter(status=True)
     return render(request,'completed.html',{'task':task})
+
+
+#profile view
+
+@login_required
+def profile(request):
+    return render(request,'profile.html')
