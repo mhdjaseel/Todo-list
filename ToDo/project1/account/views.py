@@ -32,6 +32,7 @@ def signin(req):
         user=authenticate(username=username,password=password)
 
         if user:
+            login(req,user)
             return redirect('home')
         else:
             messages.error(req,'Invalid username or password')
@@ -40,7 +41,7 @@ def signin(req):
 
 # logout view
 
-
+@login_required(login_url='signin')
 def user_logout(req):
     logout(req)
     return redirect('signin')
