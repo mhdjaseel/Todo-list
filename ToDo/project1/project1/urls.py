@@ -17,15 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from. import views
-from account import urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/',views.home,name='home'),
-    path('',views.home,name='home'),
     path('delete/<int:id>/',views.delete,name='delete'),
     path('edit/<int:id>/',views.edit,name='edit'),
     path('completed/<int:id>/',views.completed,name='completed'),
     path('completed_task',views.completed_task,name='completed_task'),
-    path('accounts/',include('account.urls'))
-    
+    path('',include('account.urls'))
+
 ]

@@ -21,6 +21,9 @@
   </head>
   <body>
     <center><h1 class="text-primary fw-bold">TODO APP</h1></center>
+    <div class="d-flex justify-content-end">
+      <a class="btn btn-danger btn-sm me-2" href="{% url "user_logout"  %}" role="button">Logout</a>
+    </div>
     <div class="container mt-5 w-50" >
       <form  method="POST">
         {% csrf_token %}
@@ -29,6 +32,7 @@
           <button class="btn btn-primary" type="submit" name="addBtn">Add</button>
         </div>
       </form>
+  
     </div>
    
   {% include "list.html" %}
