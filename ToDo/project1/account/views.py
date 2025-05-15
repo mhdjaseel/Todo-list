@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .forms import AccountForm
 from .models import Account
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -10,13 +11,17 @@ from django.contrib.auth.decorators import login_required
 # signup view
 
 def signup(request):
-    form=AccountForm()
+    user=None
+    error_message=None
     if request.POST:
-        form=AccountForm(request.POST)
-        if form.is_valid():
-            form.save()
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+        try:
+            user=User.objects.create_user(username=username,password=password)
             return redirect('signin')
-    return render(request,'accounts/signup.html',{'form':form})
+        except Exception as e:
+            error_message=str(e)  
+    return render(request,'accounts/signup.html')
 
 # signin view
 
